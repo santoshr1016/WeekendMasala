@@ -4,7 +4,6 @@ n = int(input().strip())
 max_num = int(x ** (1 / n))
 
 powers = [num ** n for num in range(1, max_num + 1)]
-print(powers)
 
 
 def power_sum(x, powers):
