@@ -6,6 +6,10 @@ resource "aws_s3_bucket" "rsk_bucket" {
   bucket = "rsk-s3-bucket"
 }
 
+# Data example
+data "aws_s3_bucket" "rsk_bucket_1" {
+  bucket = "rsk-s3-bucket-data"
+}
 resource "aws_iam_policy" "rsk_bucket_policy" {
   name = "rsk-s3-bucket-policy"
 
@@ -22,10 +26,13 @@ resource "aws_iam_policy" "rsk_bucket_policy" {
       "Effect": "Allow",
         "Resource":
         [
-          "${aws_s3_bucket.rsk_bucket.arn}"
+          "${aws_s3_bucket.rsk_bucket.arn}",
+          "${data.aws_s3_bucket.rsk_bucket_1.arn}"
         ]
     }
   ]
 }
 POLICY
 }
+
+
