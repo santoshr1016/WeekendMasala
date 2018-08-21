@@ -21,12 +21,8 @@ variable "tag_map" {
   }
 }
 
-variable "env_type" {
-
-}
-variable "queue_name" {
-
-}
+variable "env_type" {}
+variable "queue_name" {}
 
 resource "aws_sqs_queue" "queue" {
   name = "${var.queue_name}"
