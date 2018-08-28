@@ -11,6 +11,7 @@ def fib(n):
 
 def solution(N):
     val = fib(N)
+    print(val)
     if val > 999999:
         return str(val)[-6:].zfill(6)
     else:
