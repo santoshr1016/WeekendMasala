@@ -1,3 +1,6 @@
+from emoji import emojize
+
+
 def jumping(a):
     jump_dict = {}
     count = 1
@@ -15,8 +18,8 @@ def jumping(a):
                 count += 1
         start_idx = next_idx
 # a = [2, 3, -1, 1, 3]
-# a = [3, -3, -1, -1, 2]
-a = [3, 3, -1, 1, -2]
+a = [3, -3, -1, -1, 2]
+# a = [3, 3, -1, 1, -2]
 # a = [1, 1, -1, 1]
 
-print(jumping(a))
+print(emojize(":thumbs_up:")*jumping(a))

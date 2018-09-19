@@ -5,7 +5,7 @@ def pre_process(arr):
         count = freq_dict.get(item, 0)
         count += 1
         freq_dict[item] = count
-
+    print(freq_dict)
     return freq_dict
 
 
@@ -15,6 +15,7 @@ def solution(num, arr):
     for key in arr:
         if num - key in freq_dict:
             count += freq_dict.get(num-key)
+            print(key,count)
     return count
 
 

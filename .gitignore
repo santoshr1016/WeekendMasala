@@ -128,3 +128,5 @@ ENV/
 terraform-rants/create_s3_bucket/.terraform/
 terraform-rants/create_s3_bucket/terraform.tfstate
 terraform-rants/create_s3_bucket/terraform.tfstate.backup
+udemy-docker-mastery
+
