@@ -1,4 +1,4 @@
-# Operational Runbooks
+# Making hands dirty with Vaults
 
 ## Table of Contents
 
