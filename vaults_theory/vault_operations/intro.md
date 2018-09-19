@@ -36,8 +36,6 @@ Vault offers modular plug-in for three main areas:
         Where logs are sent. Available File or syslog. The specific mix of backends will depend on your project’s requirements and constraints, and more than one backend can be enabled.
  
  
- Test
- 
  
  
  
