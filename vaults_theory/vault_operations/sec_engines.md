@@ -5,7 +5,7 @@ Vault itself performs prefix routing on incoming requests and routes the request
 By default, Vault enables a secrets engine called kv at the path secret/. The kv secrets engine reads and writes raw data to the backend storage.
 There are other secret engines like AWS, MySQL, Google cloud, K8S, LDAP
 
-## Enable a Secret Engine
+## Enable and Perform CRUD operation to a Secret Engine
 ```bash
 # A KV secret engine and enabling it
 $ vault secrets enable -path=kv kv
@@ -46,6 +46,11 @@ Key                 Value
 ---                 -----
 refresh_interval    768h
 value               mypassword
+    
+## Delete a secret
+    
+$ vault delete  secret/my-secret
+Success! Data deleted (if it existed) at: secret/my-secret
 
 ```
  
