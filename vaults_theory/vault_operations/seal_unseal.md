@@ -43,7 +43,7 @@ Unseal Key 5: o58O3DEiITJRh+pbBQmRI+wUoRuAbaztRWDDW30rSDBf
     
 Initial Root Token: 705b4f84-9b82-41df-dcbe-01e51e5fc1d7
     
-Vault initialized with 5 key shares and a key threshold of 3. Please securely
+Vault **initialized with 5 key shares and a key threshold of 3.** Please securely
 distribute the key shares printed above. When the Vault is re-sealed,
 restarted, or stopped, you must supply at least 3 of these keys to unseal it
 before it can start servicing requests.
@@ -52,7 +52,7 @@ Vault does not store the generated master key. Without at least 3 key to
 reconstruct the master key, Vault will remain permanently sealed!
 ``` 
     
-Vault is started in sealed state.When it is in sealed state it cannot be accessed.
+Vault is started in **_sealed state_**.When it is in sealed state it cannot be accessed.
 Vault itself has no idea how to decrypt any data that it holds. It must be unsealed by reconstructing the Master key.
 During the initialization phase a Master key is generated and broken into Shards.
 These shards are distributed to team members.
@@ -60,3 +60,37 @@ A master key can be reconstructed by combining subset of these shards.Master key
     
    ![init](images/initialize.png)
 
+#### Unseal
+   ![unseal](images/unseal.png)
+
+Unseal is a process of reconstructing the Master key by combining the subset(threshold) of unseal keys generated during the init phase.
+```bash
+$ vault unseal
+    
+Key (will be hidden):
+Sealed: true
+Key Shares: 5
+Key Threshold: 3 
+Unseal progress: 1
+```
+#### Operate
+Once the vault is unsealed you can store the secrets
+
+```bash
+$ vault status
+Key             Value
+---             -----
+Seal Type       shamir
+Sealed          false
+Total Shares    5
+Threshold       3
+Version         0.11.1
+Cluster Name    vault-cluster-83673d9f
+Cluster ID      bef974aa-d619-f99d-c4ff-e4ec96c4941f
+HA Enabled      true
+HA Cluster      https://127.0.0.1:8201
+HA Mode         active
+```
+#### Shutdown / Seal
+Sealing automatically occurs when vault is Shutdown or any if any of the operator uses the shard to seal, which destroys the Master Key.
+Thus it cannot be accessed. Use this option in case of breach.
