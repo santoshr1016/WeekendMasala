@@ -49,6 +49,6 @@ $ vault login TOKEN-XXXXXXXXXXX
 # Can perform CRUD Operations
     
 $ vault write secret/dev/foo value=bar
+$ vault write secret/test/foo value=password
 $ vault read secret/dev/foo 
-$ vault write secret/test/foo value=bar
 ```
