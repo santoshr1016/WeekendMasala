@@ -1,3 +1,4 @@
 #### Vault Lifecycle
+Stages of Vault life cycle
 
-    ![Set Tags](images/Vault_lifecycle.png)
+   ![Vault_Life](images/Vault_lifecycle.png)
