@@ -5,7 +5,7 @@ Vault itself performs prefix routing on incoming requests and routes the request
 By default, Vault enables a secrets engine called kv at the path secret/. The kv secrets engine reads and writes raw data to the backend storage.
 There are other secret engines like AWS, MySQL, Google cloud, K8S, LDAP
 
-## Enable and Perform CRUD operation to a Secret Engine
+## Enable and Perform CRUD operation to a Secrets Engine
 ```bash
 # A KV secret engine and enabling it
 $ vault secrets enable -path=kv kv
