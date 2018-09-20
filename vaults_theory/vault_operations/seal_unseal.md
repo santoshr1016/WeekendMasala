@@ -1,2 +1,3 @@
 #### Vault Lifecycle
-![Set Tags](images/Vault_lifecycle.png)
+
+    ![Set Tags](images/Vault_lifecycle.png)
