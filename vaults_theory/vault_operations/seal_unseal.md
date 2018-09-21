@@ -61,9 +61,10 @@ A master key can be reconstructed by combining subset of these shards.Master key
    ![init](images/initialize.png)
 
 #### Unseal
+Unseal is a process of reconstructing the Master key by combining the subset(threshold) of unseal keys generated during the init phase.
+
    ![unseal](images/unseal.png)
 
-Unseal is a process of reconstructing the Master key by combining the subset(threshold) of unseal keys generated during the init phase.
 ```bash
 $ vault unseal
     
