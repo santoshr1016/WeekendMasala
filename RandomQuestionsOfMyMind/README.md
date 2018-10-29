@@ -6,7 +6,7 @@
         
     Solution. Invest money on dustbins, keep every 10 meters and maintain it, Rather than investing on advertisement.
         
-    2. How to solve the Tirupati's mammoth, gargantuan crowd population, using the modern computer science technology, like Big data, Kubernetes etc etc. ??
+    2. How to solve the Tirupati's mammoth, gargantuan crowd, using the modern computer science technology, like Big data, Kubernetes etc etc. ??
     Its an interesting problem to solve, Thats called real time.
         
     Solution. I am still imagining.   

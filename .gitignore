@@ -123,6 +123,7 @@ ENV/
 # Module directory
 .terraform/
 
+TestGit/test_file.txt
 .gitignore
 .idea/
 terraform-rants/create_s3_bucket/.terraform/
