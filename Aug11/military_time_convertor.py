@@ -20,6 +20,6 @@ class SolutionProb2(object):
 
         return str(hh).zfill(2) + ":" + str(mm).zfill(2) + ":" + str(ss).zfill(2)
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     solution = SolutionProb2()
     print(solution.convert_24hr_military(input()))
