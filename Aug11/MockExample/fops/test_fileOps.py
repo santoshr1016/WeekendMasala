@@ -26,5 +26,5 @@ class TestFileOps(TestCase):
         self.fops.check_dir_exists()
         self.fops.check_file_exists()
         assert create_file.called
-        check_dir_exists.assert_called_once_with()
+        check_dir_exists.assert_called_with()
         check_file_exists.assert_called_once_with()
