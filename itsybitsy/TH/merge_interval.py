@@ -11,6 +11,7 @@ def merge_intervals(intervals):
     4. At the end return stack
     """
     si = sorted(intervals, key=lambda tup: tup[0])
+    print(si)
     merged = []
 
     for tup in si:

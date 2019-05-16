@@ -10,3 +10,6 @@ my_dict = {
 print(my_dict)
 downsize_reason = "downsize_risk_assessment" in my_dict.get('reasonForPerfeval', {})
 print(downsize_reason)
+downsize = my_dict.get('reasonForPerfeval', {})
+print(downsize)
+print(type(downsize))
