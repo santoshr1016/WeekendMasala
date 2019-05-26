@@ -12,8 +12,7 @@ def solution(A, B):
                 count +=1
             else:
                 if smaller == 0:
-                    print(res)
-                    return
+                    return res
                 else:
                     break
         if str_array:
@@ -21,5 +20,5 @@ def solution(A, B):
             smaller -= 1
 
 A = 4
-B = 10
+B = 1
 print(solution(A, B))

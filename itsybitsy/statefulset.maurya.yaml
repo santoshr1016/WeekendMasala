@@ -1,0 +1,157 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-sidecar-config
+  namespace: maurya
+data:
+  filebeat.yml: |-
+    filebeat.config:
+      inputs:
+        # Mounted `filebeat-inputs` configmap:
+        path: ${path.config}/inputs.d/*.yml
+        # Reload inputs configs as they change:
+        reload.enabled: false
+    filebeat.inputs:
+    - type: log
+      paths:
+        - /opt/oracle/oradata/diag/rdbms/*/ORCLCDB/trace/alert_ORCLCDB.log
+        - /opt/oracle/oradata/diag/rdbms/*/ORCLCDB/trace/drcORCLCDB.log
+        - /opt/oracle/oradata/diag/tnslsnr/*/listener/trace/listener.log
+      document_type: oracle-trace
+      tags: ["oracle", "log"]
+      fields:
+        type: oracle
+        qcdev:
+      fields_under_root: true
+      encoding: utf-8
+      ignore_older: 3h
+      modules:
+        path: ${path.config}/modules.d/*.yml
+        # Reload module configs as they change:
+        reload.enabled: false
+
+    processors:
+      - add_cloud_metadata:
+      - add_kubernetes_metadata:
+          in_cluster: true
+
+    output.logstash:
+      hosts: ['logstash-service.kube-system:5044']
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: oradb
+spec:
+  serviceName: oracle
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oracle
+  template:
+    metadata:
+      labels:
+        app: oracle
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 54321
+      containers:
+      - name: oracle
+        imagePullPolicy: Always
+        image: ${DOCKER_REGISTRY}/oracle-dg-ph:${VERSION}
+        env:
+        - name: GEO_MEMBER_TYPE
+          value: "${GEO_MEMBER_TYPE}"
+        - name: DB_UQ_NAME_PREFIX
+          value: "${DB_UQ_NAME_PREFIX}"
+        - name: ORACLE_PWD
+          value: "ChangeMe1"
+        - name: ORACLE_TOTALMEMORY_MB
+          value: "3072"
+        - name: REDO_FILE_SIZE_MB
+          value: "1024"
+        - name: PDB_UNDO_SIZE
+          value: "200m"
+        - name: PDB_TEMP_SIZE
+          value: "200m"
+        - name: DB_RECOVERY_FILE_DEST_SIZE
+          value: "90g"
+        - name: DB_FLASHBACK_RETENTION_TARGET
+          value: "360"
+        - name: WAIT_FOR_PHSTANDBY
+          value: "${WAIT_FOR_PHSTANDBY}"
+        - name: CREATE_PDB_APS
+          value: "NO"
+        ports:
+        - containerPort: 1521
+          name: oradb
+        volumeMounts:
+        - name: oradata
+          mountPath: /opt/oracle/oradata
+        - name: dshm
+          mountPath: /dev/shm
+        - name: oradumps
+          mountPath: /oradumps/
+        resources:
+          requests:
+            memory: 3Gi
+      terminationGracePeriodSeconds: 900
+      - name: filebeat-sidecar
+        imagePullPolicy: Always
+        image: docker.elastic.co/beats/filebeat:7.0.0
+        args: [
+        "-c", "/etc/filebeat.yml",
+        "-e",
+        ]
+        env:
+          - name: ELASTICSEARCH_HOST
+            value: elasticsearch-logging.kube-system
+          - name: ELASTICSEARCH_PORT
+            value: "9200"
+          - name: ELASTICSEARCH_USERNAME
+            value: elastic
+          - name: ELASTICSEARCH_PASSWORD
+            value: changeme
+        securityContext:
+          runAsUser: 0
+        resources:
+          limits:
+           memory: 200Mi
+          requests:
+           cpu: 100m
+           memory: 100Mi
+        volumeMounts:
+          - name: config
+            mountPath: /etc/filebeat.yml
+            readOnly: true
+            subPath: filebeat.yml
+          - name: inputs
+            mountPath: /usr/share/filebeat/inputs.d
+            readOnly: true
+          - name: data
+            mountPath: /usr/share/filebeat/data
+          - name: varlibdockercontainers
+            mountPath: /var/lib/docker/containers
+            readOnly: true
+          - name: oradata
+            mountPath: /opt/oracle/oradata
+            readOnly: true
+        volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+        - name: oradumps
+          persistentVolumeClaim:
+            claimName: oradumps-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: oradata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: ${STORAGE_CLASS_SSD_FAST}
+      resources:
+        requests:
+          storage: ${ORADB_DISK_SIZE}

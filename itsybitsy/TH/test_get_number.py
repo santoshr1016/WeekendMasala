@@ -1,5 +1,6 @@
 from unittest import TestCase
-from itsybitsy.code_folding import get_number
+
+from itsybitsy.TH.code_folding import get_number
 
 
 class TestGet_number(TestCase):
