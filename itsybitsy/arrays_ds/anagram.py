@@ -8,6 +8,8 @@ def anagram(s1, s2):
     count_dic = {}
     for ch in s1:
         count_dic[ch] = count_dic.get(ch, 0) + 1
+    # print(count_dic)
+    # print({item: s1.count(item) for item in s1})
     for ch in s2:
         count_dic[ch] = count_dic.get(ch, 0) - 1
 

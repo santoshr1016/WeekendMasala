@@ -2,12 +2,11 @@ a_list = [1,2,3,4,5,6,17,18,19]
 
 
 def fib(N=10):
-    f, s = 0, 1
-    for i in range(2, N):
-        tmp = f + s
-        f = s
-        s = tmp
-        print(tmp)
+    f, s =0, 1
+    print(f)
+    for i in range(N):
+        f, s = s, f+s
+        print(f)
 
 
 def add_new(N=10):

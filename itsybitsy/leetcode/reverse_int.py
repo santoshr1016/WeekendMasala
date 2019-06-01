@@ -12,10 +12,11 @@ def reverse(x):
         x = x // 10
         newnum = newnum*10 + digit
     res = (-1 * newnum) if flag else newnum
-    if flag:
-        return 0 if res < 2** -31 else res
-    else:
-        return 0 if res > 2 ** -31 else res
+    return res if res else (-1 * newnum)
+    # if flag:
+    #     return 0 if res < 2** -31 else res
+    # else:
+    #     return 0 if res > 2 ** -31 else res
 
 
-print(reverse(-123))
+print(reverse(123))

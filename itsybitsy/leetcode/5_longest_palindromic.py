@@ -17,4 +17,4 @@ def longest_palin(s):
 
     return "".join(left)
 
-print(longest_palin("babad"))
+print(longest_palin("aba"))
