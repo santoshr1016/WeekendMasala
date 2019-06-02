@@ -130,4 +130,13 @@ terraform-rants/create_s3_bucket/.terraform/
 terraform-rants/create_s3_bucket/terraform.tfstate
 terraform-rants/create_s3_bucket/terraform.tfstate.backup
 udemy-docker-mastery
+swiggy
+swiggy/*
+swiggy/*/*
+CodingInterviews
+CodingInterviews/*/*/*
+CodingInterviews/*/
+itsybitsy/algorithms-python.zip
+itsybitsy/algorithms-python/Slides
+itsybitsy/algorithms-python/Slides/*
 
