@@ -27,5 +27,12 @@ print(heapq.nsmallest(3, portfolio, key=lambda x: x['price']))
 nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
 heapq.heapify(nums)
 print(nums)
+# heapq.heappop()
 print(sorted(nums)[-3:])
 print(sorted(nums)[:3])
+
+hq = []
+for item in nums:
+       heapq.heappush(hq, item)
+print(hq)
+print(heapq.heappop(hq))
