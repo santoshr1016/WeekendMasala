@@ -13,6 +13,8 @@ print([i for i in mylist if i<0])
 g = (item for item in mylist if item > 0)
 for i in g:
     print(i)
+for item in (item for item in mylist if item > 0):
+    print(item, end=' ')
 
 # Sometimes, the filtering criteria cannot be easily expressed in a
 # list comprehension or generator expression
