@@ -5,6 +5,8 @@
 
 ## Eternally Thankful to Jodi Glickman for these words
 ### GIFT model
+
+    
     generosity, 
     initiative, 
     forward momentum, and 
