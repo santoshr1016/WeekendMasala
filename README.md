@@ -1,7 +1,10 @@
 # WeekendMasala
-Writing code for fun!!!
+    Writing code for fun!!!
 
-    GIFT model
+
+
+## Eternally Thankful to Jodi Glickman for these words
+### GIFT model
     generosity, 
     initiative, 
     forward momentum, and 

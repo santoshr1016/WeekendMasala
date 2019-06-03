@@ -1,9 +1,10 @@
+## Eternally Thankful to Jodi Glickman for these words
 ### [Interviewer] Tell me about Yourself
 
     The goal is to help me get where?
     It's actually not to get hired. 
     It's not to close that next round of funding. 
-    It's not to land that new client. (chuckling) It's actually not. 
+    It's not to land that new client. It's actually not. 
     The goal of the pitch is simply to get yourself to a second conversation. 
     
     The chances of you closing a deal or landing a huge new business opportunity in that first conversation is slim to none. 
