@@ -4,7 +4,7 @@ from Aug11.military_time_convertor import SolutionProb2
 
 
 class TestSolutionProb2(TestCase):
-    def test_case_1(self):
+    def test_convert_24hr_military(self):
         solution = SolutionProb2()
 
         string = "12:00:00AM"
@@ -14,7 +14,7 @@ class TestSolutionProb2(TestCase):
 
 def main():
     test = TestSolutionProb2()
-    test.test_case_1()
+    test.test_convert_24hr_military()
 
 if __name__ == '__main__':
     main()
