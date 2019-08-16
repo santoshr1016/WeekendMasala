@@ -1,3 +1,9 @@
+"""
+Program to print the top ten IPs from the apache log file.
+Please provide a valid filename with correct path.
+Assumption : log file is in same folder.
+Output : Print Top ten ips with count.
+"""
 from collections import Counter
 
 
@@ -18,19 +24,20 @@ def valid_ip(ip):
             return False
     return True
 
-ips = list()
-with open(filename) as fd:
-    for line in fd:
-        ip = line.strip().split(" ")[0]
 
-        if valid_ip(ip):
-            ips.append(ip)
+def print_top_10_ips():
+    ips = list()
+    with open(filename) as fd:
+        for line in fd:
+            ip = line.strip().split(" ")[0]
 
+            if valid_ip(ip):
+                ips.append(ip)
 
-ip_count = Counter(ips)
-top_ten = ip_count.most_common(10)
-for item in top_ten:
-    print(item)
+    ip_count = Counter(ips)
+    top_ten = ip_count.most_common(10)
+    for item in top_ten:
+        print("Count: {} -> ip: {}".format(item[1], item[0]))
 
-
-
+if __name__ == "__main__":
+    print_top_10_ips()
