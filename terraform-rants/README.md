@@ -23,3 +23,17 @@
  8. Big open source vibrant community
  
  With this start you can find the sample snippets to help understand better TF.
+ 
+## Do's and Don't
+
+1) Do not have single state file for all environments . See the video where we explain the danger of having single state file. NOTE : You may accidentally delete your resources if you maintain single state file and move your terraform code
+
+2) Do not delete state file. See the video where we explain the danger of deleting state file
+
+3) Avoid storing state files on GITHUB. You may exposing secrets (passwords)
+
+4) Use remote backend like S3 for your state files
+
+5) Do not modify state files directly
+
+6) Use Dynamodb table along with S3 backend as shown in the remote state tutorial to avoid locking issues
