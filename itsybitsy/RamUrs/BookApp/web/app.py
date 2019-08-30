@@ -8,178 +8,98 @@ api = Api(app)
 
 client = MongoClient("mongodb://db:27017")
 db = client.aNewDB
-UserNum = db["UserNum"]
-
-UserNum.insert({
-    'number_of_user': 0
-})
-
-
-class Visit(Resource):
-    def get(self):
-        prev_num = UserNum.find({})[0]['number_of_user']
-        new_num = prev_num + 1
-        UserNum.update({}, {"$set": {"number_of_user": new_num}})
-        return str("Hello") + str(new_num)
+BooksDB = db["Books"]
 
 
 def check_validity_of_posted_data(pd, fn):
     if fn == "add" or fn == "sub" or fn == "mul":
-        if "x" not in pd and "y" not in pd:
+        if set(pd.keys()) == set("name", "isbn", "authors", "country", "number_of_pages", "publisher", "release_date"):
             return 301
         else:
             return 200
-    elif fn == "div":
-        if "x" not in pd and "y" not in pd:
-            return 301
-        elif int(pd["y"]) == 0:
-            return 302
-        else:
-            return 200
+    # elif fn == "div":
+    #     if "x" not in pd and "y" not in pd:
+    #         return 301
+    #     elif int(pd["y"]) == 0:
+    #         return 302
+    #     else:
+    #         return 200
 
+"""
+('978-0143125471','The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics','Daniel James Brown','Penguin Books','2014-12-12,3',3,9.49,'Paperback','Canoeing','Sports & Outdoors',3,'bookstore/static/assets/coverimages/12343.png')
+,('978-1476764832','The Time Traveler"s Wife','Audrey Niffenegger', 'Scribner','2004-12-12',6, 14.28 , 'Paperback', 'Time Travel', 'Science Fiction',1,'bookstore/static/assets/coverimages/45656.png')
+,('978-1400033805','The Closing of the Western Mind: The Rise of Faith and the Fall of Reason','Charles Freeman','Vintage', '2005-12-12', 4,13.32,'Paperback', 'Culture','Religion',1,'bookstore/static/assets/coverimages/45656.png')
+,('978-0452299030','The Sign: The Shroud of Turin and the Secret of the Resurrection','Thomas de Wesselow','Plume','2012,10,16',4,12.00,'Hardcover','Christian','History',3,'bookstore/static/assets/coverimages/67878.png')
 
+"""
 # Define resource , The class is our resource
-class Add(Resource):
+class Create(Resource):
     def post(self):
         # If I am here, The resource is was requested using POST
 
         # STEP 1 GET Posted data
         posted_data = request.get_json()
-        st_code = check_validity_of_posted_data(posted_data, "add")
+        # st_code = check_validity_of_posted_data(posted_data, "add")
+        #
+        # if st_code != 200:
+        #     ret_json = {
+        #         "Message": "An error happened",
+        #         "Status code": st_code
+        #     }
+        #     return ret_json
+        book = posted_data
 
-        if st_code != 200:
-            ret_json = {
-                "Message": "An error happened",
-                "Status code": st_code
-            }
-            return ret_json
-
-        num1 = int(posted_data["x"])    # Make sure they are int
-        num2 = int(posted_data["y"])
-
-        # STEP 2 Operate on the data
-        result = num1 + num2
-
+        BooksDB.insert(book)
         # Step 3 Prepare the return json
+        bd = dict()
+        bd["book"] = book
+        data = list()
         ret_dict = {
-            "Message": result,
-            "Status Code": 200
-        }
+            "status_code": 201,
+            "status": "success",
+            "data": data.append(bd)
+            }
 
         # Step 4 Return the json
         return jsonify(ret_dict)
 
+
+class Read(Resource):
     def get(self):
-        # If I am here, The resource is was requested using GET
+        output = []
+        for item in BooksDB.find():
+            output.append({"name": item["name"], "isbn": item["isbn"], "authors": item["authors"],
+                           "number_of_pages": item["number_of_pages"], "publisher": item["publisher"],
+                           "country": item["country"], "release_date": item["release_date"]})
+
+        ret_json = {
+            "status_code": 200,
+            "status": "sucess",
+            "data": output,
+        }
+        return jsonify(output)
+
+
+class ReadBookById(Resource):
+    def get(self, book_id):
         pass
 
-    def put(self):
-        # If I am here, The resource is was requested using PUT
-        pass
 
-    def delete(self):
-        # If I am here, The resource is was requested using DELETE
+class Update(Resource):
+    def post(self, book_id):
         pass
 
 
-class Subtract(Resource):
-    def post(self):
-        # If I am here, The resource is was requested using POST
-
-        # STEP 1 GET Posted data
-        posted_data = request.get_json()
-        st_code = check_validity_of_posted_data(posted_data, "sub")
-
-        if st_code != 200:
-            ret_json = {
-                "Message": "An error happened",
-                "Status code": st_code
-            }
-            return ret_json
-
-        num1 = int(posted_data["x"])    # Make sure they are int
-        num2 = int(posted_data["y"])
-
-        # STEP 2 Operate on the data
-        result = num1 - num2
-
-        # Step 3 Prepare the return json
-        ret_dict = {
-            "Message": result,
-            "Status Code": 200
-        }
-
-        # Step 4 Return the json
-        return jsonify(ret_dict)
+class Delete(Resource):
+    def post(self, book_id):
+        pass
 
 
-class Divide(Resource):
-    def post(self):
-        # If I am here, The resource is was requested using POST
-
-        # STEP 1 GET Posted data
-        posted_data = request.get_json()
-        st_code = check_validity_of_posted_data(posted_data, "div")
-
-        if st_code != 200:
-            ret_json = {
-                "Message": "An error happened",
-                "Status code": st_code
-            }
-            return ret_json
-
-        num1 = int(posted_data["x"])    # Make sure they are int
-        num2 = int(posted_data["y"])
-
-        # STEP 2 Operate on the data
-        result = num1 / num2
-
-        # Step 3 Prepare the return json
-        ret_dict = {
-            "Message": result,
-            "Status Code": 200
-        }
-
-        # Step 4 Return the json
-        return jsonify(ret_dict)
-
-
-class Multiply(Resource):
-    def post(self):
-        # If I am here, The resource is was requested using POST
-
-        # STEP 1 GET Posted data
-        posted_data = request.get_json()
-        st_code = check_validity_of_posted_data(posted_data, "mul")
-
-        if st_code != 200:
-            ret_json = {
-                "Message": "An error happened",
-                "Status code": st_code
-            }
-            return ret_json
-
-        num1 = int(posted_data["x"])    # Make sure they are int
-        num2 = int(posted_data["y"])
-
-        # STEP 2 Operate on the data
-        result = num1 * num2
-
-        # Step 3 Prepare the return json
-        ret_dict = {
-            "Message": result,
-            "Status Code": 200
-        }
-
-        # Step 4 Return the json
-        return jsonify(ret_dict)
-
-
-api.add_resource(Add, '/api/v1/books')
-api.add_resource(Subtract, '/sub')
-api.add_resource(Multiply, '/mul')
-api.add_resource(Divide, '/div')
-api.add_resource(Visit, '/hello')
+api.add_resource(Create, '/api/v1/books')
+api.add_resource(Read, '/api/v1/books')
+api.add_resource(ReadBookById, '/api/v1/books/<int:book_id>')
+api.add_resource(Update, '/api/v1/books/<int:book_id>')
+api.add_resource(Delete, '/api/v1/books/<int:book_id>')
 
 
 @app.route("/")

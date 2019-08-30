@@ -28,8 +28,16 @@ def merge_intervals(intervals):
     return merged
 
 if __name__ == '__main__':
-
+    # n = int(input())
+    # l = list()
+    # for i in range(n):
+    #     t = [int(i) for i in input().strip().split(" ")]
+    #     l.append(tuple(t))
+    # print(l)
     l = [(5, 7), (11, 116), (3, 4), (10, 12), (6, 12)]
     print("Original list of ranges: {}".format(l))
     merged_list = merge_intervals(l)
     print("List of ranges after merge_ranges: {}".format(merged_list))
+    # print(len(merged_list))
+    # for item in merged_list:
+    #     print(item[0], item[1])

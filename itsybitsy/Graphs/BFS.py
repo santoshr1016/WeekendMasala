@@ -62,8 +62,8 @@ nodeG.adj_list.append(nodeH)
 nodeD.adj_list.append(nodeE)
 
 graph = Graph()
-# graph.bfs(nodeA)
-print("*" * 22)
+graph.bfs(nodeA)
+# print("*" * 22)
 # graph.dfs(nodeA)
-graph.dfs_iterative(nodeA)
+# graph.dfs_iterative(nodeA)
 

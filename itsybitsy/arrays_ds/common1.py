@@ -1,3 +1,23 @@
+from collections import OrderedDict
+
+
+def first_non_repeating_char(s="geekforgeeks"):
+    print([item for item in s if s.count(item) == 1][0])
+    # lst = []
+    # tmp_dict = OrderedDict()
+    # for ch in s:
+    #     if ch in tmp_dict:
+    #         tmp_dict[ch] = tmp_dict.get(ch) + 1
+    #     else:
+    #         tmp_dict[ch] = 1
+    #         lst.append(ch)
+    # for x in lst:
+    #     if tmp_dict[x] == 1:
+    #         print(x)
+
+first_non_repeating_char()
+
+
 def palindrome(a_string):
 
     a_string = a_string.lower()

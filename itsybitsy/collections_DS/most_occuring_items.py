@@ -18,3 +18,6 @@ for word in morewords:
 print(word_counts)
 
 # word_counts.update(morewords)
+print("using count")
+s = "This is the word, which is the most repeated"
+print(s.count("is"))
